@@ -4,7 +4,7 @@ const Navitem = ({ target, children }: { target: string; children: string }) => 
   const handleClick = () => {
     const el = document.getElementById(target);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      el.scrollIntoView({ behavior: "smooth",block:"start" });
     }
   };
 

@@ -1,9 +1,23 @@
 "use client";
+import { useScroll, motion } from "framer-motion";
 import Hero from "./Components/Hero";
+
+const ScrollProgress = () => {
+  const { scrollYProgress } = useScroll();
+
+  return (
+    <motion.div 
+      className="fixed top-0 left-0 right-0 h-[4px] bg-white/60 z-[999]" 
+      style={{ scaleX: scrollYProgress, transformOrigin: "0%" }}
+    />
+  );
+};
 
 export default function Home() {
   return (
-    <main className="w-full min-h-screen bg-cyan-500 text-white">
+    <>
+    <ScrollProgress />  
+    <main id ="hero" className="w-full min-h-screen bg-stone-900 text-white">
       <Hero />
       
       <section
@@ -24,5 +38,6 @@ export default function Home() {
       </section>
 
     </main>
+    </>
   );
 }

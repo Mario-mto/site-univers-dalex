@@ -39,7 +39,9 @@ const Navbar = () => {
         `}
       >
         {/* LOGO */}
-        <div className="text-2xl font-semibold text-white">L'univers d'Alex</div>
+        <div className="text-2xl font-semibold text-white">
+          <Navitem target="hero">L'univers d'Alex</Navitem>
+          </div>
 
         {/* DESKTOP LINKS */}
         <div className="hidden md:flex items-center gap-8">
