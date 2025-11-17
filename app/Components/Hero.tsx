@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
+
 export default function Hero() {
   const { scrollYProgress } = useScroll();
   const parallaxY = useTransform(scrollYProgress, [0, 1], [0, 800]);
@@ -12,7 +13,7 @@ export default function Hero() {
       console.log("scroll progress:", value);
     });
   }, [scrollYProgress]);
-  
+
   return (
     <section id="hero" className="w-full min-h-screen bg-black text-white">
       {/* SCROLL PROGRESS BAR */}
@@ -22,26 +23,20 @@ export default function Hero() {
       />
 
       {/* HERO SECTION */}
-      <div  className="relative h-screen w-full overflow-hidden pt-24">
-        
-
-        
+      <div className="relative h-screen w-full overflow-hidden pt-24">
         {/* BACKGROUND PARALLAX */}
         <motion.div
           className="absolute inset-0 bg-cover bg-center "
           style={{
             backgroundImage: "url('/images/hero-section-image.jpg')",
             y: parallaxY,
-            scale: parallaxScale
+            scale: parallaxScale,
           }}
-          transition={{ease: "easeOut"}}
+          transition={{ ease: "easeOut" }}
         />
-        
 
         {/* OVERLAY */}
         <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]" />
-        
-        
 
         {/* CONTENT */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-10">
