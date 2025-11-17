@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Navitem from "./NavItem" 
+import BackToTop from "./BackToTop";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -16,6 +17,8 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  {/* <BackToTop /> */}
+  
 
   return (
     <>
@@ -49,8 +52,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* MOBILE ICON */}
-        <div className="md:hidden">
+        {/* <div className="md:hidden">
           {open ? (
             <X
               onClick={() => setOpen(false)}
@@ -62,11 +64,11 @@ const Navbar = () => {
               className="text-white w-7 h-7 cursor-pointer"
             />
           )}
-        </div>
+        </div> */}
+        
       </motion.nav>
 
-      {/* MOBILE MENU */}
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {open && (
           <>
             <motion.div
@@ -101,7 +103,8 @@ const Navbar = () => {
             </motion.div>
           </>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
+      
     </>
   );
 };
