@@ -1,13 +1,27 @@
+"use client";
+
+import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
-const Navitem = ({ target, children }: { target: string; children: string }) => {
+type NavitemProps = {
+  target: string;  // id de section
+  children: React.ReactNode;
+};
+
+export default function Navitem({ target, children }: NavitemProps) {
+  const pathname = usePathname();
+  const router = useRouter();
+
   const handleClick = () => {
-    const el = document.getElementById(target);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth",block:"start" });
+    if (pathname !== "/") {
+      // On revient à la page principale
+      router.push(`/#${target}`);
+    } else {
+      // On est déjà sur la page principale
+      const el = document.getElementById(target);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
     }
   };
-
   return (
     <motion.button
       onClick={handleClick}
@@ -30,5 +44,3 @@ const Navitem = ({ target, children }: { target: string; children: string }) => 
   );
 };
 
-
-export default Navitem;

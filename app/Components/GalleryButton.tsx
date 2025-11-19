@@ -1,24 +1,25 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 
 export default function GalleryButton() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  // Préchargement automatique de la page galerie
+  // Précharge la page galerie pour navigation instantanée
   useEffect(() => {
-    router.prefetch("/galerie");
+    router.prefetch("/Galerie");
   }, [router]);
 
   const handleClick = () => {
     setLoading(true);
+
+    // délai pour laisser le loader animé se montrer un peu
     setTimeout(() => {
-      router.push("/galerie");
-    }, 300); // petit délai pour voir le loader
+      router.push("/Galerie");
+    }, 300);
   };
 
   return (
@@ -30,18 +31,18 @@ export default function GalleryButton() {
         relative inline-flex items-center justify-center
         mt-12 px-8 py-4 rounded-xl text-lg font-medium overflow-hidden
         bg-white/20 backdrop-blur-md border border-white/30
-        text-white hover:bg-white/30 transition shadow-xl
+        text-white hover:bg-white/30 transition shadow-xl cursor-pointer
       "
     >
-      {/* Loader circulaire quand on clique */}
       {loading ? (
+        // Loader circulaire Apple
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"
         />
       ) : (
-        <span>Voir la galerie complète</span>
+        "Voir la galerie complète"
       )}
     </motion.button>
   );

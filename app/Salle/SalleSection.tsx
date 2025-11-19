@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import GalleryButton from "@/app/Components/GalleryButton";
+import GalleryButton from "../Components/GalleryButton";
 
 
 export default function SalleSection() {
@@ -22,7 +22,7 @@ export default function SalleSection() {
             une soirée mémorable.
           </p>
 
-          {/* GALLERY PREVIEW */}
+
           {/* GALLERY PREVIEW */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
