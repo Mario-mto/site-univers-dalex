@@ -1,79 +1,183 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Toast from "../Components/Toast";
-import { motion } from "framer-motion";
-  
 
 export default function ContactForm() {
-    const [showToast, setShowToast] = useState(false);
+  // STATE
+  const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = () => {
-    // Affiche le toast
-    setShowToast(true);
+  // VALIDATION LIVE
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [type, setType] = useState("Réservation");
+  const [message, setMessage] = useState("");
 
-    // Le toast disparaît après 3 sec
-    setTimeout(() => setShowToast(false), 3000);
+  const [shake, setShake] = useState(false);
+
+  // TOAST
+  const [toast, setToast] = useState({
+    show: false,
+    type: "success" as "success" | "error",
+    message: "",
+  });
+
+  const showToast = (type: "success" | "error", message: string) => {
+    setToast({ show: true, type, message });
+    setTimeout(() => setToast((p) => ({ ...p, show: false })), 3000);
   };
 
-    return(
+  // VALIDATION CHECK
+  const isStep1Valid = name.length > 1 && /\S+@\S+\.\S+/.test(email);
+  const isStep2Valid = message.length > 3;
+
+  const animateShake = () => {
+    setShake(true);
+    setTimeout(() => setShake(false), 400);
+  };
+
+  const handleNext = () => {
+    if (!isStep1Valid) return animateShake();
+    setStep(2);
+  };
+
+  const handleSubmit = () => {
+    if (!isStep2Valid) return animateShake();
+    setLoading(true);
+    showToast("success", "Message envoyé !");
+  };
+
+  return (
     <>
-      <Toast show={showToast} message="Message envoyé avec succès !" />
+      <Toast show={toast.show} type={toast.type} message={toast.message} />
 
       <motion.form
-        action="https://formsubmit.co/TON_EMAIL"
+        action="https://formsubmit.co/mario.montcho@gmail.com"
         method="POST"
         onSubmit={handleSubmit}
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.1 }}
-        viewport={{ once: true }}
-        className="bg-stone-800/70 backdrop-blur-lg border border-white/10 p-10 rounded-2xl shadow-xl"
+        className="bg-stone-800/70 backdrop-blur-lg border border-white/10 p-10 rounded-2xl shadow-xl relative"
       >
-        {/* HIDDEN FIELDS */}
+        {/* HONEYPOT ANTI SPAM */}
+        <input type="text" name="_honey" className="hidden" />
+
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="_next" value="https://universdalex.com/#contact" />
+        <input type="hidden" name="_next" value="http://localhost:3000" />
 
-        <h3 className="text-3xl font-semibold mb-6">Envoyer un message</h3>
-
-        <div className="space-y-6">
-          <input
-            name="Nom"
-            placeholder="Nom complet"
-            required
-            className="w-full px-4 py-3 rounded-xl bg-stone-900/50 border border-white/10 text-white
-            placeholder-white/40 focus:outline-none focus:border-white/40"
+        {/* PROGRESS BAR */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-white/10 rounded-t-xl overflow-hidden">
+          <motion.div
+            className="h-full bg-white/60"
+            animate={{ width: step === 1 ? "50%" : "100%" }}
+            transition={{ duration: 0.4 }}
           />
-
-          <input
-            type="email"
-            name="Email"
-            placeholder="Adresse email"
-            required
-            className="w-full px-4 py-3 rounded-xl bg-stone-900/50 border border-white/10 text-white
-            placeholder-white/40 focus:outline-none focus:border-white/40"
-          />
-
-          <textarea
-            name="Message"
-            placeholder="Votre message"
-            rows={5}
-            required
-            className="w-full px-4 py-3 rounded-xl bg-stone-900/50 border border-white/10 text-white
-            placeholder-white/40 focus:outline-none focus:border-white/40"
-          />
-
-          <motion.button
-            type="submit"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="w-full py-3 bg-white/20 border border-white/20 text-white rounded-xl
-            hover:bg-white/30 transition shadow-lg"
-          >
-            Envoyer
-          </motion.button>
         </div>
+
+        <AnimatePresence mode="wait">
+          {step === 1 && (
+            <motion.div
+              key="step1"
+              initial={{ opacity: 0, x: -45 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 45 }}
+              transition={{ duration: 0.4 }}
+              className={shake ? "animate-shake" : ""}
+            >
+              <h3 className="text-3xl font-semibold mb-6">Vos informations</h3>
+
+              <input
+                name="Nom"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Nom complet"
+                className={`w-full px-4 py-3 rounded-xl border ${
+                  name.length > 1 ? "border-green-500" : "border-red-500"
+                } bg-stone-900/50 text-white`}
+              />
+
+              <input
+                name="Email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Adresse email"
+                className={`w-full px-4 py-3 rounded-xl border ${
+                  /\S+@\S+\.\S+/.test(email)
+                    ? "border-green-500"
+                    : "border-red-500"
+                } bg-stone-900/50 text-white`}
+              />
+
+              <select
+                name="Type de demande"
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl bg-stone-900/50 border border-white/10 text-white"
+              >
+                <option>Réservation</option>
+                <option>Privatisation</option>
+                <option>Question</option>
+              </select>
+
+              <motion.button
+                type="button"
+                onClick={handleNext}
+                whileHover={{ scale: 1.04 }}
+                className="w-full py-3 mt-4 bg-white/20 text-white rounded-xl"
+              >
+                Suivant →
+              </motion.button>
+            </motion.div>
+          )}
+
+          {step === 2 && (
+            <motion.div
+              key="step2"
+              initial={{ opacity: 0, x: 45 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -45 }}
+              transition={{ duration: 0.4 }}
+              className={shake ? "animate-shake" : ""}
+            >
+              <h3 className="text-3xl font-semibold mb-6">Votre message</h3>
+
+              <textarea
+                name="Message"
+                rows={6}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Votre message"
+                className={`w-full px-4 py-3 rounded-xl border ${
+                  isStep2Valid ? "border-green-500" : "border-red-500"
+                } bg-stone-900/50 text-white`}
+              />
+
+              <div className="flex gap-4 mt-4">
+                <motion.button
+                  type="button"
+                  onClick={() => setStep(1)}
+                  className="flex-1 py-3 bg-white/10 rounded-xl text-white"
+                >
+                  ← Retour
+                </motion.button>
+
+                <motion.button
+                  type="submit"
+                  disabled={loading}
+                  className="flex-1 py-3 bg-white/20 rounded-xl text-white flex justify-center"
+                >
+                  {loading ? (
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    "Envoyer"
+                  )}
+                </motion.button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.form>
     </>
   );
