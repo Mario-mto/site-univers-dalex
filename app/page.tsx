@@ -4,6 +4,7 @@ import { useScroll, motion } from "framer-motion";
 import Hero from "./Components/Hero";
 import ContactSection from "./Contact/ContactSection";
 import Salle from "./Salle/SalleSection"; 
+import ConceptSection from "./Accueil/ConceptSection";
 
 
 const ScrollProgress = () => {
@@ -24,12 +25,8 @@ export default function Home() {
       <main id="hero" className="w-full min-h-screen bg-stone-900 text-white">
         <Hero />
 
-        <section
-          id="home"
-          className="relative h-screen w-full flex items-center justify-center"
-        >
-          <h1 className="text-6xl">Accueil</h1>
-        </section>
+        {/* SECTION ACCEUIL/CONCEPT MENU */}
+        <ConceptSection />
 
         {/* SECTION MENU */}
         < MenuSection />
