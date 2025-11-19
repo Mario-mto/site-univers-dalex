@@ -1,144 +1,124 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, Clock } from "lucide-react";
-import { useTransform, useScroll } from "framer-motion";
-import WhatsAppButton from "./WhatsAppButton";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
 
 export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="w-full min-h-screen bg-[#f6eee3] text-[#4a3722] py-32 px-10"
+      className="min-h-screen w-full py-32 px-10 bg-stone-900 text-white"
     >
-        {/* BACKGROUND PARALLAX */}
-<motion.div
-  className="absolute inset-0 bg-[url('/images/wood-texture.jpg')] bg-cover bg-center opacity-10"
-  style={{
-    y: useTransform(useScroll().scrollYProgress, [0, 1], [0, 150]),
-    scale: useTransform(useScroll().scrollYProgress, [0, 1], [1, 1.1]),
-  }}
-/>
-
-      {/* HEADER */}
-      <div className="text-center mb-16">
-        <h2 className="text-5xl font-extrabold mb-4 tracking-tight">
-          Contactez-nous
-        </h2>
-        <p className="text-lg text-[#6b4e2e] max-w-2xl mx-auto">
-          Une question, une demande spéciale ou envie de réserver ?  
-          Nous sommes là pour vous aider.
+      <div className="max-w-5xl mx-auto text-center mb-16">
+        <h2 className="text-5xl font-bold mb-6">Contactez-nous</h2>
+        <p className="text-white/70 text-lg max-w-2xl mx-auto">
+          Pour une réservation, une privatisation de notre salle des fêtes  
+          ou toute autre demande, notre équipe est à votre écoute.
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
-        {/* LEFT – Contact Infos */}
+      {/* GRID INFO + FORMULAIRE */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+
+        {/* BLOC INFOS — style dark premium */}
         <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="space-y-10"
+          className="bg-stone-800/70 backdrop-blur-lg border border-white/10 p-10 rounded-2xl shadow-xl"
         >
-          {/* Adresse */}
-          <div className="flex items-start gap-5">
-            <MapPin size={32} className="text-[#8b6f47]" />
-            <div>
-              <h3 className="text-2xl font-semibold mb-1">Adresse</h3>
-              <p className="text-[#4a3722]/80">
-                123 Rue du Bon Goût,  
-                Montréal, QC H2X 1Y3
-              </p>
+          <h3 className="text-3xl font-semibold mb-6">Informations</h3>
+
+          <div className="space-y-6 text-white/85">
+            <div className="flex items-center gap-4">
+              <Phone className="text-white/70" />
+              <span>+33 6 01 02 03 04</span>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <Mail className="text-white/70" />
+              <span>contact@universdalex.com</span>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <MapPin className="text-white/70" />
+              <span>12 rue de la Dégustation, Paris</span>
+            </div>
+
+            <div className="flex items-start gap-4 mt-4">
+              <Clock className="text-white/70" />
+              <div className="text-white/80">
+                <p>Lundi – Jeudi : 17h – 00h</p>
+                <p>Vendredi – Samedi : 17h – 02h</p>
+                <p>Dimanche : Fermé</p>
+              </div>
             </div>
           </div>
 
-          {/* Téléphone */}
-          <div className="flex items-start gap-5">
-            <Phone size={32} className="text-[#8b6f47]" />
-            <div>
-              <h3 className="text-2xl font-semibold mb-1">Téléphone</h3>
-              <p className="text-[#4a3722]/80">+1 (514) 555-9871</p>
-            </div>
-          </div>
+          {/* Boutons */}
+          <div className="mt-10 flex flex-col gap-4">
+            <motion.a
+              href="https://wa.me/330601020304"
+              target="_blank"
+              whileHover={{ scale: 1.05 }}
+              className="px-6 py-3 bg-green-600 rounded-xl shadow-md text-white font-medium hover:bg-green-500 transition"
+            >
+              WhatsApp
+            </motion.a>
 
-          {/* Email */}
-          <div className="flex items-start gap-5">
-            <Mail size={32} className="text-[#8b6f47]" />
-            <div>
-              <h3 className="text-2xl font-semibold mb-1">Email</h3>
-              <p className="text-[#4a3722]/80">contact@universdalex.ca</p>
-            </div>
-          </div>
-
-          {/* Horaires */}
-          <div className="flex items-start gap-5">
-            <Clock size={32} className="text-[#8b6f47]" />
-            <div>
-              <h3 className="text-2xl font-semibold mb-1">Horaires</h3>
-
-              <ul className="text-[#4a3722]/80 leading-relaxed">
-                <li>Lundi - Jeudi : 11h30 - 22h00</li>
-                <li>Vendredi : 11h30 - 23h00</li>
-                <li>Samedi : 12h00 - 23h00</li>
-                <li>Dimanche : 12h00 - 21h00</li>
-              </ul>
-            </div>
+            <motion.a
+              href="https://m.me/universdalex"
+              target="_blank"
+              whileHover={{ scale: 1.05 }}
+              className="px-6 py-3 bg-blue-600 rounded-xl shadow-md text-white font-medium hover:bg-blue-500 transition"
+            >
+              Messenger
+            </motion.a>
           </div>
         </motion.div>
 
-        {/* RIGHT – Formulaire */}
+        {/* FORMULAIRE — thème stone 800 */}
         <motion.form
-          initial={{ opacity: 0, x: 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
           viewport={{ once: true }}
-          action="https://formspree.io/f/yourFormID_here"
-          method="POST"
-          className="bg-white/80 backdrop-blur-xl rounded-2xl p-10 shadow-xl border border-[#8b6f47]/20"
+          className="bg-stone-800/70 backdrop-blur-lg border border-white/10 p-10 rounded-2xl shadow-xl"
         >
-          {/* NOM */}
-          <div className="mb-6">
-            <label className="block text-lg font-medium mb-2">Nom *</label>
+          <h3 className="text-3xl font-semibold mb-6">Envoyer un message</h3>
+
+          <div className="space-y-6">
             <input
               type="text"
-              name="name"
-              required
-              className="w-full px-4 py-3 rounded-lg bg-[#f6eee3] border border-[#8b6f47]/30 text-[#4a3722] outline-none focus:border-[#8b6f47]"
+              placeholder="Nom complet"
+              className="w-full px-4 py-3 rounded-xl bg-stone-900/50 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-white/40"
             />
-          </div>
 
-          {/* EMAIL */}
-          <div className="mb-6">
-            <label className="block text-lg font-medium mb-2">Email *</label>
             <input
               type="email"
-              name="email"
-              required
-              className="w-full px-4 py-3 rounded-lg bg-[#f6eee3] border border-[#8b6f47]/30 text-[#4a3722] outline-none focus:border-[#8b6f47]"
+              placeholder="Adresse email"
+              className="w-full px-4 py-3 rounded-xl bg-stone-900/50 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-white/40"
             />
-          </div>
 
-          {/* MESSAGE */}
-          <div className="mb-6">
-            <label className="block text-lg font-medium mb-2">Message *</label>
             <textarea
-              name="message"
+              placeholder="Votre message"
               rows={5}
-              required
-              className="w-full px-4 py-3 rounded-lg bg-[#f6eee3] border border-[#8b6f47]/30 text-[#4a3722] outline-none focus:border-[#8b6f47]"
+              className="w-full px-4 py-3 rounded-xl bg-stone-900/50 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-white/40"
             ></textarea>
-          </div>
 
-          {/* SUBMIT */}
-          <button
-            type="submit"
-            className="w-full py-4 bg-[#8b6f47] hover:bg-[#7d613f] text-white text-lg font-semibold rounded-xl shadow-lg transition-all duration-300"
-          >
-            Envoyer le message
-          </button>
+            <motion.button
+              type="submit"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="w-full py-3 bg-white/20 border border-white/20 text-white rounded-xl hover:bg-white/30 transition shadow-lg"
+            >
+              Envoyer
+            </motion.button>
+          </div>
         </motion.form>
+
       </div>
-      <WhatsAppButton />
     </section>
   );
 }

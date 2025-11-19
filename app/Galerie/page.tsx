@@ -70,7 +70,7 @@ export default function GaleriePage() {
 
         {/* HERO INTRO */}
         <section className="text-center mb-20">
-          <h1 className="text-6xl font-bold mb-6">Galerie</h1>
+          <h1 className="text-6xl font-bold mb-6 mt-10" >Galerie</h1>
 
           <p className="text-white/70 max-w-2xl mx-auto text-lg">
             Découvrez l'ambiance unique de notre restaurant, bar et salle des fêtes.  
