@@ -80,7 +80,6 @@ useEffect(() => {
       }}
     />
 
-    <h3 className="text-3xl font-semibold mb-8">Informations</h3>
 
     <h3 className="text-3xl font-semibold mb-4">Informations</h3>
 
