@@ -2,6 +2,8 @@
 import  MenuSection  from "@/app/Menu/MenuSection"
 import { useScroll, motion } from "framer-motion";
 import Hero from "./Components/Hero";
+import ContactSection from "./Contact/ContactSection";
+import Salle from "./Salle/SalleSection"; 
 
 
 const ScrollProgress = () => {
@@ -32,10 +34,11 @@ export default function Home() {
         {/* SECTION MENU */}
         < MenuSection />
 
+        {/* SALLE DES FÊTES */}
+        < Salle />
+
         {/* SECTION À PROPOS */}
-        <section id="about" className="min-h-screen w-full pt-24">
-          <h1 className="text-4xl p-12">À propos</h1>
-        </section>
+       <ContactSection />
       </main>
     </>
   );

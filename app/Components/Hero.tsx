@@ -2,7 +2,6 @@
 import { useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-
 export default function Hero() {
   const { scrollYProgress } = useScroll();
   const parallaxY = useTransform(scrollYProgress, [0, 1], [0, 800]);
@@ -59,12 +58,19 @@ export default function Hero() {
           </motion.p>
 
           <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.1, ease: "easeOut" }}
-            className="mt-10 px-8 py-4 bg-white/20 border border-white/30 backdrop-blur-md text-white rounded-xl text-lg hover:bg-white/30 transition shadow-xl"
+            onClick={() => {
+              const target = document.getElementById("contact");
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="mt-10 px-8 py-4 bg-white/20 border border-white/30 
+             backdrop-blur-md text-white rounded-xl text-lg 
+             hover:bg-white/30 transition shadow-xl"
           >
-            Réserver une table
+            Contactez-nous
           </motion.button>
         </div>
       </div>

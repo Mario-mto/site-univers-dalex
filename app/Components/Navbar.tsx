@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import Navitem from "./NavItem" 
+import Navitem from "./NavItem";
 import BackToTop from "./BackToTop";
 
 const Navbar = () => {
@@ -17,8 +17,9 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  {/* <BackToTop /> */}
-  
+  {
+    /* <BackToTop /> */
+  }
 
   return (
     <>
@@ -41,17 +42,28 @@ const Navbar = () => {
         {/* LOGO */}
         <div className="text-2xl font-semibold text-white">
           <Navitem target="hero">L'univers d'Alex</Navitem>
-          </div>
+        </div>
 
         {/* DESKTOP LINKS */}
         <div className="hidden md:flex items-center gap-8">
           <Navitem target="home">Accueil</Navitem>
           <Navitem target="menu">Menu</Navitem>
-          <Navitem target="about">À propos</Navitem>
+          <Navitem target="salle">Salle des fêtes</Navitem>
 
-          <button className="px-4 py-2 bg-white/20 rounded-xl text-white hover:bg-white/30 transition">
-            Réserver
-          </button>
+          <motion.button
+            onClick={() => {
+              const target = document.getElementById("contact");
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-5 py-2 bg-white/20 rounded-xl text-white 
+             hover:bg-white/30 transition shadow-lg backdrop-blur-md"
+          >
+            Contactez-nous
+          </motion.button>
         </div>
 
         {/* <div className="md:hidden">
@@ -67,7 +79,6 @@ const Navbar = () => {
             />
           )}
         </div> */}
-        
       </motion.nav>
 
       {/* <AnimatePresence>
@@ -106,7 +117,6 @@ const Navbar = () => {
           </>
         )}
       </AnimatePresence> */}
-      
     </>
   );
 };
