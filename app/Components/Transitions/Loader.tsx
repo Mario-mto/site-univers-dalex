@@ -20,7 +20,7 @@ export default function Loader() {
         className="flex flex-col items-center gap-4"
       >
         <Image
-          src="/logo.png" // Ton logo "L'univers d'Alex"
+          src="/images/Logo.jpeg" // Ton logo "L'univers d'Alex"
           alt="Logo"
           width={120}
           height={120}

@@ -65,7 +65,7 @@ export default function ConceptSection() {
 
           {/* IMAGE */}
           <motion.img
-            src="/images/restaurant-interieur.jpg"
+            src="/images/ambiance-restau.jpg"
             alt="Ambiance du restaurant"
             className="w-full h-[420px] object-cover group-hover:scale-[1.03] transition duration-700"
           />

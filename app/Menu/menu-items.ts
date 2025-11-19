@@ -1,19 +1,19 @@
 export const menuItems = [
   {
     id: 1,
-    category: "entrées",
-    title: "Poulpe Grillé",
-    description: "Purée de patate douce, huile d’olive",
+    category: "plats",
+    title: "Attieke Garba",
+    description: "Attieke avec poisson braisé",
     price: "32€",
-    image: "/images/poulet.jpg",
+    image: "/images/attieke.png",
   },
   {
     id: 2,
-    category: "entrées",
-    title: "Bruschetta",
-    description: "Tomates fraîches, basilic, huile d’olive",
+    category: "plats",
+    title: "Riz d'Alex",
+    description: "Riz d'Alex et son poisson braisé",
     price: "12€",
-    image: "/images/poulet.jpg",
+    image: "/images/riz-d-alex.png",
   },
   {
     id: 3,
@@ -34,10 +34,10 @@ export const menuItems = [
   {
     id: 5,
     category: "desserts",
-    title: "Tiramisu",
-    description: "Mascarpone, cacao amer, café italien",
+    title: "Sorbet Coco",
+    description: "Sorbet coco aux saveurs antillaises",
     price: "10€",
-    image: "/images/poulet.jpg",
+    image: "/images/sorbet-coco.jpg",
   },
   {
     id: 6,
