@@ -29,7 +29,7 @@ export default function GalleryButton() {
       whileTap={{ scale: 0.97 }}
       className="
         relative inline-flex items-center justify-center
-        mt-12 px-8 py-4 rounded-xl text-lg font-medium overflow-hidden
+        mt-0 px-6 md:px-8 py-3 md:py-4 rounded-xl text-base md:text-lg font-medium overflow-hidden
         bg-white/20 backdrop-blur-md border border-white/30
         text-white hover:bg-white/30 transition shadow-xl cursor-pointer
       "

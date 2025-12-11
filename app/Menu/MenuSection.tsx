@@ -17,15 +17,15 @@ export default function MenuSection() {
   return (
     <section
       id="menu"
-      className="min-h-screen w-full py-32 px-10 bg-stone-900 text-white"
+      className="w-full py-16 md:py-24 lg:py-32 px-6 md:px-10 bg-stone-900 text-white"
     >
       {/* HEADER */}
-      <div className="text-center mb-16">
-        <h2 className="text-5xl font-bold mb-4">Carte des saveurs</h2>
-        <p className="text-xl text-white/60 mb-6 font-light">
+      <div className="text-center mb-8 md:mb-12">
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 md:mb-8">Carte des saveurs</h2>
+        <p className="text-lg md:text-xl text-white/60 mb-6 md:mb-8 font-light">
           Une cuisine sincère qui honore les traditions.
         </p>
-        <p className="text-white/70 max-w-2xl mx-auto text-lg leading-relaxed">
+        <p className="text-white/70 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
           Chaque plat raconte une histoire. Des produits frais, des recettes
           transmises, une passion partagée. Découvrez notre sélection, pensée
           pour vous faire voyager et vous rassembler.
@@ -33,7 +33,7 @@ export default function MenuSection() {
       </div>
 
       {/* FILTER BAR */}
-      <div className="flex items-center justify-center gap-6 mb-16 flex-wrap">
+      <div className="flex items-center justify-center gap-4 md:gap-6 mb-12 md:mb-16 flex-wrap px-4">
         {categories.map((cat) => {
           const labels: Record<string, string> = {
             tout: "Tout voir",

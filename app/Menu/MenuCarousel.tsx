@@ -17,7 +17,7 @@ export default function MenuCarousel({ items }: Props) {
   const { carouselRef, canScrollLeft, canScrollRight } = useCarousel(items);
 
   return (
-    <div className="relative max-w-7xl mx-auto">
+    <div className="relative max-w-7xl mx-auto mt-0">
       {/* FADE EDGES */}
       <div className="pointer-events-none absolute left-0 top-0 h-full w-10 bg-gradient-to-r from-stone-900/80 to-transparent z-20" />
       <div className="pointer-events-none absolute right-0 top-0 h-full w-10 bg-gradient-to-l from-stone-900/80 to-transparent z-20" />
@@ -25,7 +25,7 @@ export default function MenuCarousel({ items }: Props) {
       {/* CAROUSEL */}
       <div
         ref={carouselRef}
-        className="flex overflow-x-auto scrollbar-hide gap-8 snap-x snap-mandatory scroll-smooth px-2 py-4"
+        className="flex overflow-x-auto scrollbar-hide gap-6 md:gap-8 snap-x snap-mandatory scroll-smooth px-2 py-6 md:py-8"
       >
         {items.map((item) => (
           <div

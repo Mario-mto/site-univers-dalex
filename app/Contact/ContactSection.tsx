@@ -68,15 +68,17 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="min-h-screen w-full pt-40 px-6 bg-stone-900 text-white flex flex-col items-center"
+      className="w-full py-16 md:py-24 lg:py-32 px-6 md:px-10 bg-stone-900 text-white flex flex-col items-center"
     >
       {/* TITRE */}
-      <div className="text-center max-w-3xl mb-24">
-        <h2 className="text-6xl font-bold mb-4">Parlons de votre projet</h2>
-        <p className="text-xl text-white/60 mb-6 font-light">
+      <div className="text-center max-w-3xl mb-12 md:mb-16 lg:mb-20">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8">
+          Parlons de votre projet
+        </h2>
+        <p className="text-lg md:text-xl text-white/60 mb-6 md:mb-8 font-light">
           Réservation, privatisation, événement
         </p>
-        <p className="text-white/70 text-lg leading-relaxed">
+        <p className="text-white/70 text-base md:text-lg leading-relaxed">
           Nous sommes là pour transformer vos envies en réalité. Une table pour
           ce soir ? Un événement à organiser ? Contactez-nous, nous vous
           répondons avec plaisir.
@@ -92,12 +94,14 @@ export default function ContactSection() {
         className="
       relative bg-stone-800/70 backdrop-blur-xl
       border border-white/10 shadow-2xl
-      p-12 rounded-3xl w-full max-w-2xl text-center
+      p-8 md:p-10 lg:p-12 rounded-2xl md:rounded-3xl w-full max-w-2xl text-center
       hover:shadow-[0_0_60px_rgba(255,255,255,0.06)]
       transition-shadow group
     "
       >
-        <h3 className="text-3xl font-semibold mb-6">Nos coordonnées</h3>
+        <h3 className="text-2xl md:text-3xl font-semibold mb-6 md:mb-8">
+          Nos coordonnées
+        </h3>
 
         {/* BADGE ÉTAT */}
         <motion.div
@@ -105,7 +109,7 @@ export default function ContactSection() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4 }}
           className={`
-    inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium mb-8
+    inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium mb-8 md:mb-10
     ${
       isOpen
         ? "bg-green-600/20 text-green-400 border border-green-700/30"
@@ -122,21 +126,25 @@ export default function ContactSection() {
           {isOpen ? "Ouvert actuellement" : "Fermé"}
         </motion.div>
 
-        <div className="space-y-6 text-white/85 mx-auto">
+        <div className="space-y-5 md:space-y-6 text-white/85 mx-auto">
           <a
             href={`tel:${SITE_CONFIG.contact.phone.replace(/\s/g, "")}`}
-            className="flex items-center justify-center gap-4 hover:text-white transition-colors"
+            className="flex items-center justify-center gap-3 md:gap-4 hover:text-white transition-colors"
           >
-            <Phone className="text-white/70" />
-            <span>{SITE_CONFIG.contact.phone}</span>
+            <Phone className="text-white/70" size={20} />
+            <span className="text-sm md:text-base">
+              {SITE_CONFIG.contact.phone}
+            </span>
           </a>
 
           <a
             href={`mailto:${SITE_CONFIG.contact.email}`}
-            className="flex items-center justify-center gap-4 hover:text-white transition-colors"
+            className="flex items-center justify-center gap-3 md:gap-4 hover:text-white transition-colors"
           >
-            <Mail className="text-white/70" />
-            <span>{SITE_CONFIG.contact.email}</span>
+            <Mail className="text-white/70" size={20} />
+            <span className="text-sm md:text-base">
+              {SITE_CONFIG.contact.email}
+            </span>
           </a>
 
           <a
@@ -145,15 +153,17 @@ export default function ContactSection() {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-4 hover:text-white transition-colors"
+            className="flex items-center justify-center gap-3 md:gap-4 hover:text-white transition-colors"
           >
-            <MapPin className="text-white/70" />
-            <span>{SITE_CONFIG.contact.address}</span>
+            <MapPin className="text-white/70" size={20} />
+            <span className="text-sm md:text-base">
+              {SITE_CONFIG.contact.address}
+            </span>
           </a>
 
-          <div className="flex items-start justify-center gap-4 mt-4">
-            <Clock className="text-white/70" />
-            <div className="text-white/80 text-center">
+          <div className="flex items-start justify-center gap-3 md:gap-4 mt-4 md:mt-5">
+            <Clock className="text-white/70 mt-0.5" size={20} />
+            <div className="text-white/80 text-center text-sm md:text-base">
               <p>Lundi – Jeudi : 17h – 00h</p>
               <p>Vendredi – Samedi : 17h – 02h</p>
               <p>Dimanche : Fermé</p>
@@ -162,7 +172,7 @@ export default function ContactSection() {
         </div>
 
         {/* BOUTONS */}
-        <div className="mt-12 flex flex-col items-center gap-4">
+        <div className="mt-10 md:mt-12 flex flex-col items-center gap-4">
           <motion.a
             href={`https://wa.me/${SITE_CONFIG.contact.whatsapp}`}
             target="_blank"

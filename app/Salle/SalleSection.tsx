@@ -6,28 +6,25 @@ import GalleryButton from "../Components/GalleryButton";
 
 export default function SalleSection() {
   return (
-    <>
-      {/* SECTION SALLE DES FÊTES */}
-      <section
-        id="salle"
-        className="min-h-screen w-full py-32 px-10 bg-stone-800 text-white"
-      >
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-5xl font-bold mb-4">Un espace pour vos moments</h2>
-          <p className="text-xl text-white/60 mb-8 font-light">
-            Célébrations, réceptions, événements privés
-          </p>
+    <section
+      id="salle"
+      className="w-full py-16 md:py-24 lg:py-32 px-6 md:px-10 bg-stone-800 text-white"
+    >
+      <div className="max-w-7xl mx-auto text-center">
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 md:mb-8">Un espace pour vos moments</h2>
+        <p className="text-lg md:text-xl text-white/60 mb-6 md:mb-8 font-light">
+          Célébrations, réceptions, événements privés
+        </p>
 
-          <p className="text-white/70 text-lg max-w-2xl mx-auto mb-16 leading-relaxed">
-            Notre salle des fêtes s'adapte à vos envies. Anniversaires, cocktails,
-            réceptions d'entreprise, mariages... Nous créons l'ambiance parfaite
-            pour transformer chaque occasion en souvenir précieux. À discuter
-            ensemble, selon vos besoins.
-          </p>
+        <p className="text-white/70 text-base md:text-lg max-w-2xl mx-auto mb-12 md:mb-16 leading-relaxed">
+          Notre salle des fêtes s'adapte à vos envies. Anniversaires, cocktails,
+          réceptions d'entreprise, mariages... Nous créons l'ambiance parfaite
+          pour transformer chaque occasion en souvenir précieux. À discuter
+          ensemble, selon vos besoins.
+        </p>
 
-
-          {/* GALLERY PREVIEW - Refined masonry-style layout */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+        {/* GALLERY PREVIEW - Refined masonry-style layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12 md:mb-16">
             {[
               "/images/salle-des-fetes/salle-fete-1.jpeg",
               "/images/salle-des-fetes/salle-fete-2.jpeg",
@@ -68,10 +65,8 @@ export default function SalleSection() {
             })}
           </div>
 
-          <GalleryButton />
-
-        </div>
-      </section>
-    </>
+        <GalleryButton />
+      </div>
+    </section>
   );
 }
