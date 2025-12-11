@@ -66,11 +66,13 @@ export default function MenuCard({ title, description, price, image }: Props) {
       />
 
       {/* IMAGE */}
-      <div className="h-56 w-full overflow-hidden">
+      <div className="h-56 w-full overflow-hidden relative">
         <img
           src={image}
-          alt={title}
+          alt={`${title} - ${description}`}
           className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
+          loading="lazy"
+          decoding="async"
         />
       </div>
 

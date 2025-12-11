@@ -13,16 +13,18 @@ export default function ConceptSection() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          <h2 className="text-5xl font-bold mb-6">
-            Une ambiance chaleureuse,
-            <br />
-            une cuisine raffinée.
+          <h2 className="text-5xl font-bold mb-4">
+            Bien plus qu'un restaurant
           </h2>
+          <p className="text-xl text-white/60 mb-8 font-light">
+            Une table, des saveurs, des moments.
+          </p>
 
           <p className="text-white/70 text-lg leading-relaxed mb-10">
-            L’Univers d’Alex est un lieu où la gastronomie rencontre le plaisir
-            de partager : une cuisine faite maison, un bar élégant et une salle
-            des fêtes pouvant accueillir vos plus beaux événements.
+            Au cœur de Paris, L'univers d'Alex cultive l'art du partage autour
+            d'une cuisine généreuse et faite maison. Entre le restaurant, le bar
+            et notre salle des fêtes, chaque espace raconte une histoire. La
+            vôtre.
           </p>
 
           <motion.button
@@ -35,10 +37,10 @@ export default function ConceptSection() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-block px-8 py-4 bg-white/20 border border-white/20 
-             backdrop-blur-xl rounded-xl text-lg shadow-lg
+             backdrop-blur-xl rounded-xl text-lg shadow-lg font-medium
              hover:bg-white/30 transition"
           >
-            Découvrir le menu
+            Explorer le menu
           </motion.button>
         </motion.div>
 
@@ -64,10 +66,12 @@ export default function ConceptSection() {
           />
 
           {/* IMAGE */}
-          <motion.img
+          <img
             src="/images/ambiance-restau.jpg"
-            alt="Ambiance du restaurant"
+            alt="Ambiance chaleureuse du restaurant L'univers d'Alex"
             className="w-full h-[420px] object-cover group-hover:scale-[1.03] transition duration-700"
+            loading="lazy"
+            decoding="async"
           />
         </motion.div>
       </div>

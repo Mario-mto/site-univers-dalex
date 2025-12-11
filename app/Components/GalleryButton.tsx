@@ -42,7 +42,7 @@ export default function GalleryButton() {
           className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"
         />
       ) : (
-        "Voir la galerie complète"
+        "Découvrir l'espace"
       )}
     </motion.button>
   );

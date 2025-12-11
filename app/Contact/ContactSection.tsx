@@ -7,150 +7,183 @@ import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import Modal from "../Components/Modal";
 import ContactForm from "./ContactForm";
 import ContactButton from "./ContactButton";
+import { SITE_CONFIG } from "../config/site";
 
 export default function ContactSection() {
   // 🕒 Hook : calcule si le restaurant est ouvert
-const [isOpen, setIsOpen] = useState(false);
-const [modalOpen, setModalOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
-useEffect(() => {
-  const checkOpenStatus = () => {
-    const now = new Date();
-    const day = now.getDay(); // 0=dimanche ... 6=samedi
-    const hour = now.getHours();
-    const minutes = now.getMinutes();
+  useEffect(() => {
+    const checkOpenStatus = () => {
+      const now = new Date();
+      const day = now.getDay(); // 0=dimanche ... 6=samedi
+      const hour = now.getHours();
+      const minutes = now.getMinutes();
+      const currentTime = hour * 60 + minutes; // Total minutes since midnight
 
-    let open = false;
+      let open = false;
 
-    // Horaires
-    if (day >= 1 && day <= 4) {
-      // Lundi → Jeudi : 17h - 00h
-      open = hour >= 17 && hour < 24;
-    } else if (day === 5 || day === 6) {
-      // Vendredi & Samedi : 17h → 02h
-      open = hour >= 17 || hour < 2;
-    } else if (day === 0) {
-      // Dimanche : fermé
-      open = false;
-    }
+      // Check if closed day
+      if ((SITE_CONFIG.hours.closed as readonly number[]).includes(day)) {
+        setIsOpen(false);
+        return;
+      }
 
-    setIsOpen(open);
-  };
+      // Check weekday hours (Mon-Thu)
+      if (
+        (SITE_CONFIG.hours.weekdays.days as readonly number[]).includes(day)
+      ) {
+        const openTime =
+          SITE_CONFIG.hours.weekdays.open.hour * 60 +
+          SITE_CONFIG.hours.weekdays.open.minute;
+        const closeTime =
+          SITE_CONFIG.hours.weekdays.close.hour * 60 +
+          SITE_CONFIG.hours.weekdays.close.minute;
+        open = currentTime >= openTime && currentTime < closeTime;
+      }
+      // Check weekend hours (Fri-Sat)
+      else if (
+        (SITE_CONFIG.hours.weekend.days as readonly number[]).includes(day)
+      ) {
+        const openTime =
+          SITE_CONFIG.hours.weekend.open.hour * 60 +
+          SITE_CONFIG.hours.weekend.open.minute;
+        const closeTime =
+          SITE_CONFIG.hours.weekend.close.hour * 60 +
+          SITE_CONFIG.hours.weekend.close.minute;
+        // Handle overnight hours (e.g., 17:00 to 02:00 next day)
+        open = currentTime >= openTime || currentTime < closeTime;
+      }
 
-  checkOpenStatus();
-  const interval = setInterval(checkOpenStatus, 60000); // rafraîchissement 1 min
+      setIsOpen(open);
+    };
 
-  return () => clearInterval(interval);
-}, []);
+    checkOpenStatus();
+    const interval = setInterval(checkOpenStatus, 60000); // Refresh every minute
 
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section
-  id="contact"
-  className="min-h-screen w-full py-40 px-6 bg-stone-900 text-white flex flex-col items-center"
->
-  {/* TITRE */}
-  <div className="text-center max-w-3xl mb-24">
-    <h2 className="text-6xl font-bold mb-6">Contactez-nous</h2>
-    <p className="text-white/70 text-lg">
-      Pour une réservation ou privatisation, notre équipe est à votre écoute.
-    </p>
-  </div>
+      id="contact"
+      className="min-h-screen w-full pt-40 px-6 bg-stone-900 text-white flex flex-col items-center"
+    >
+      {/* TITRE */}
+      <div className="text-center max-w-3xl mb-24">
+        <h2 className="text-6xl font-bold mb-4">Parlons de votre projet</h2>
+        <p className="text-xl text-white/60 mb-6 font-light">
+          Réservation, privatisation, événement
+        </p>
+        <p className="text-white/70 text-lg leading-relaxed">
+          Nous sommes là pour transformer vos envies en réalité. Une table pour
+          ce soir ? Un événement à organiser ? Contactez-nous, nous vous
+          répondons avec plaisir.
+        </p>
+      </div>
 
-  {/* BLOC CENTRAL PREMIUM */}
-  <motion.div
-    initial={{ opacity: 0, y: 50 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.9, ease: "easeOut" }}
-    viewport={{ once: true }}
-    className="
+      {/* BLOC CENTRAL PREMIUM */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="
       relative bg-stone-800/70 backdrop-blur-xl
       border border-white/10 shadow-2xl
       p-12 rounded-3xl w-full max-w-2xl text-center
       hover:shadow-[0_0_60px_rgba(255,255,255,0.06)]
-      transition-shadow
+      transition-shadow group
     "
-  >
-    {/* SPOTLIGHT */}
-    <div
-      className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-10 transition duration-500"
-      style={{
-        background:
-          "radial-gradient(circle at 50% 0%, rgba(255,255,255,0.35), transparent 70%)",
-      }}
-    />
+      >
+        <h3 className="text-3xl font-semibold mb-6">Nos coordonnées</h3>
 
-
-    <h3 className="text-3xl font-semibold mb-4">Informations</h3>
-
-{/* BADGE ÉTAT */}
-<motion.div
-  initial={{ opacity: 0, scale: 0.8 }}
-  animate={{ opacity: 1, scale: 1 }}
-  transition={{ duration: 0.4 }}
-  className={`
-    inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium mb-6
-    ${isOpen ? "bg-green-600/20 text-green-400 border border-green-700/30" 
-             : "bg-red-600/20 text-red-400 border border-red-700/30"}
+        {/* BADGE ÉTAT */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4 }}
+          className={`
+    inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium mb-8
+    ${
+      isOpen
+        ? "bg-green-600/20 text-green-400 border border-green-700/30"
+        : "bg-red-600/20 text-red-400 border border-red-700/30"
+    }
   `}
->
-  <span
-    className={`
+        >
+          <span
+            className={`
       w-2.5 h-2.5 rounded-full mr-2 
       ${isOpen ? "bg-green-400 animate-pulse" : "bg-red-400"}
     `}
-  />
-  {isOpen ? "Ouvert maintenant" : "Fermé actuellement"}
-</motion.div>
+          />
+          {isOpen ? "Ouvert actuellement" : "Fermé"}
+        </motion.div>
 
+        <div className="space-y-6 text-white/85 mx-auto">
+          <a
+            href={`tel:${SITE_CONFIG.contact.phone.replace(/\s/g, "")}`}
+            className="flex items-center justify-center gap-4 hover:text-white transition-colors"
+          >
+            <Phone className="text-white/70" />
+            <span>{SITE_CONFIG.contact.phone}</span>
+          </a>
 
-    <div className="space-y-6 text-white/85 mx-auto">
-      <div className="flex items-center justify-center gap-4">
-        <Phone className="text-white/70" />
-        <span>+33 6 01 02 03 04</span>
-      </div>
+          <a
+            href={`mailto:${SITE_CONFIG.contact.email}`}
+            className="flex items-center justify-center gap-4 hover:text-white transition-colors"
+          >
+            <Mail className="text-white/70" />
+            <span>{SITE_CONFIG.contact.email}</span>
+          </a>
 
-      <div className="flex items-center justify-center gap-4">
-        <Mail className="text-white/70" />
-        <span>contact@universdalex.com</span>
-      </div>
+          <a
+            href={`https://maps.google.com/?q=${encodeURIComponent(
+              SITE_CONFIG.contact.address
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-4 hover:text-white transition-colors"
+          >
+            <MapPin className="text-white/70" />
+            <span>{SITE_CONFIG.contact.address}</span>
+          </a>
 
-      <div className="flex items-center justify-center gap-4">
-        <MapPin className="text-white/70" />
-        <span>12 rue de la Dégustation, Paris</span>
-      </div>
-
-      <div className="flex items-start justify-center gap-4 mt-4">
-        <Clock className="text-white/70" />
-        <div className="text-white/80 text-center">
-          <p>Lundi – Jeudi : 17h – 00h</p>
-          <p>Vendredi – Samedi : 17h – 02h</p>
-          <p>Dimanche : Fermé</p>
+          <div className="flex items-start justify-center gap-4 mt-4">
+            <Clock className="text-white/70" />
+            <div className="text-white/80 text-center">
+              <p>Lundi – Jeudi : 17h – 00h</p>
+              <p>Vendredi – Samedi : 17h – 02h</p>
+              <p>Dimanche : Fermé</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    {/* BOUTONS */}
-    <div className="mt-12 flex flex-col items-center gap-4">
-      <motion.a
-        href="https://wa.me/330601020304"
-        target="_blank"
-        whileHover={{ scale: 1.05 }}
-        className="px-8 py-3 bg-green-600 rounded-xl shadow-md text-white 
+        {/* BOUTONS */}
+        <div className="mt-12 flex flex-col items-center gap-4">
+          <motion.a
+            href={`https://wa.me/${SITE_CONFIG.contact.whatsapp}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-3 bg-green-600 rounded-xl shadow-md text-white 
                    font-medium hover:bg-green-500 transition w-full max-w-xs"
-      >
-        WhatsApp
-      </motion.a>
+            aria-label="Nous contacter sur WhatsApp"
+          >
+            WhatsApp
+          </motion.a>
 
-      <ContactButton onClick={() => setModalOpen(true)} />
-    </div>
-  </motion.div>
+          <ContactButton onClick={() => setModalOpen(true)} />
+        </div>
+      </motion.div>
 
-  {/* MODAL */}
-  <Modal visible={modalOpen} onClose={() => setModalOpen(false)}>
-    <ContactForm />
-  </Modal>
-</section>
-
+      {/* MODAL */}
+      <Modal visible={modalOpen} onClose={() => setModalOpen(false)}>
+        <ContactForm />
+      </Modal>
+    </section>
   );
 }

@@ -43,10 +43,29 @@ export default function ContactForm() {
     setStep(2);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (!isStep2Valid) return animateShake();
+
     setLoading(true);
-    showToast("success", "Message envoyé !");
+    try {
+      // FormSubmit.co will handle the submission
+      // The form action will be triggered by the native form submission
+      showToast("success", "Message envoyé avec succès !");
+      
+      // Reset form after a delay
+      setTimeout(() => {
+        setName("");
+        setEmail("");
+        setMessage("");
+        setType("Réservation");
+        setStep(1);
+        setLoading(false);
+      }, 2000);
+    } catch (error) {
+      showToast("error", "Erreur lors de l'envoi. Veuillez réessayer.");
+      setLoading(false);
+    }
   };
 
   return (
@@ -57,6 +76,7 @@ export default function ContactForm() {
         action="https://formsubmit.co/mario.montcho@gmail.com"
         method="POST"
         onSubmit={handleSubmit}
+        noValidate
         className="bg-stone-800/70 backdrop-blur-lg border border-white/10 p-10 rounded-2xl shadow-xl relative"
       >
         {/* HONEYPOT ANTI SPAM */}
@@ -89,12 +109,15 @@ export default function ContactForm() {
 
               <input
                 name="Nom"
+                type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Nom complet"
+                required
+                minLength={2}
                 className={`w-full px-4 py-3 rounded-xl border ${
                   name.length > 1 ? "border-green-500" : "border-red-500"
-                } bg-stone-900/50 text-white`}
+                } bg-stone-900/50 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/20`}
               />
 
               <input
@@ -103,11 +126,13 @@ export default function ContactForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Adresse email"
+                required
+                pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
                 className={`w-full px-4 py-3 rounded-xl border ${
                   /\S+@\S+\.\S+/.test(email)
                     ? "border-green-500"
                     : "border-red-500"
-                } bg-stone-900/50 text-white`}
+                } bg-stone-900/50 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/20`}
               />
 
               <select
@@ -149,9 +174,11 @@ export default function ContactForm() {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Votre message"
+                required
+                minLength={4}
                 className={`w-full px-4 py-3 rounded-xl border ${
                   isStep2Valid ? "border-green-500" : "border-red-500"
-                } bg-stone-900/50 text-white`}
+                } bg-stone-900/50 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/20 resize-none`}
               />
 
               <div className="flex gap-4 mt-4">
